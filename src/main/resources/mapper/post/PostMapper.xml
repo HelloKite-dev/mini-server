@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seoyeon.mini_server.post.dao.PostDao">
+
+    <select id="selectAllPostList" resultType="com.seoyeon.mini_server.post.dto.PostDto">
+        SELECT ID,
+               USER_ID,
+               TITLE,
+               VIEW_COUNT,
+               REG_DT
+        FROM POSTS
+        ORDER BY REG_DT DESC
+    </select>
+
+    <select id="selectPostDetail" parameterType="Long" resultType="com.seoyeon.mini_server.post.dto.PostDto">
+        SELECT ID,
+               USER_ID,
+               TITLE,
+               CONTENT,
+               VIEW_COUNT,
+               REG_DT,
+               MOD_DT
+        FROM POSTS
+        WHERE ID = #{id}
+    </select>
+
+	<insert id="insertPost" parameterType="com.seoyeon.mini_server.post.dto.PostDto" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO POSTS (USER_ID, TITLE, CONTENT, REG_DT)
+		VALUES (#{userId}, #{title}, #{content}, NOW())
+	</insert>
+</mapper>
