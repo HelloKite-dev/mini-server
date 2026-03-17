@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seoyeon.mini_server.comment.dao.CommentDao">
+
+	<select id="selectCommentList" parameterType="Long" resultType="com.seoyeon.mini_server.comment.dto.CommentResponseDto">
+		SELECT ID,
+		       POST_ID,
+			   USER_ID,
+			   CONTENT,
+			   REG_DT,
+			   MOD_DT
+		FROM COMMENTS
+		WHERE POST_ID = #{postId}
+	</select>
+
+	<insert id="insertComment" parameterType="com.seoyeon.mini_server.comment.dto.CommentRequestDto" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO COMMENTS (POST_ID, USER_ID, CONTENT, REG_DT)
+		VALUES (#{postId}, #{userId}, #{content}, NOW())
+	</insert>
+
+	<update id="updateComment" parameterType="com.seoyeon.mini_server.comment.dto.CommentRequestDto">
+		UPDATE COMMENTS
+		SET CONTENT = #{content},
+		MOD_DT = NOW()
+		WHERE ID = #{id}
+	</update>
+
+	<delete id="deleteComment" parameterType="Long">
+		DELETE FROM COMMENTS
+		WHERE ID = #{id}
+	</delete>
+</mapper>
