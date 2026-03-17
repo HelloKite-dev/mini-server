@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seoyeon.mini_server.file.dao.FileDao">
+
+    <insert id="insertFile" parameterType="com.seoyeon.mini_server.file.dto.FileRequestDto" useGeneratedKeys="true" keyProperty="fileId">
+        INSERT INTO FILES (POST_ID, FILE_NM, FILE_PATH, FILE_SIZE, FILE_EXT, REG_DT)
+        VALUES (#{postId}, #{fileNm}, #{filePath}, #{fileSize}, #{fileExt}, NOW())
+    </insert>
+
+    <select id="selectFileList" parameterType="Long" resultType="com.seoyeon.mini_server.file.dto.FileResponseDto">
+        SELECT FILE_ID,
+               POST_ID,
+               FILE_NM,
+               FILE_PATH,
+               FILE_SIZE,
+               FILE_EXT,
+               REG_DT
+        FROM FILES
+        WHERE POST_ID = #{postId}
+    </select>
+
+    <select id="selectFile" parameterType="Long" resultType="com.seoyeon.mini_server.file.dto.FileResponseDto">
+        SELECT FILE_ID,
+               POST_ID,
+               FILE_NM,
+               FILE_PATH,
+               FILE_SIZE,
+               FILE_EXT,
+               REG_DT
+        FROM FILES
+        WHERE FILE_ID = #{fileId}
+    </select>
+
+</mapper>
