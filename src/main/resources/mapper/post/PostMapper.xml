@@ -29,4 +29,17 @@
 		INSERT INTO POSTS (USER_ID, TITLE, CONTENT, REG_DT)
 		VALUES (#{userId}, #{title}, #{content}, NOW())
 	</insert>
+
+    <update id="updatePost" parameterType="com.seoyeon.mini_server.post.dto.PostDto">
+        UPDATE POSTS
+        SET TITLE = #{title},
+        CONTENT = #{content},
+        MOD_DT = NOW()
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="deletePost" parameterType="Long">
+        DELETE FROM POSTS
+        WHERE ID = #{id}
+    </delete>
 </mapper>

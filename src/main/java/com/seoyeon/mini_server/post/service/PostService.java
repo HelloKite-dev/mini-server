@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PostService {
-
     private final PostDao postDao;
 
     // 게시글 전체 조회
@@ -29,4 +28,14 @@ public class PostService {
 	public int insertPost(PostDto postDto) {
 		return postDao.insertPost(postDto);
 	}
+
+    // 게시글 수정
+    public int updatePost(PostDto postDto) {
+        return postDao.updatePost(postDto);
+    }
+
+    // 게시글 삭제
+    public int deletePost(Long id) {
+        return postDao.deletePost(id);
+    }
 }
