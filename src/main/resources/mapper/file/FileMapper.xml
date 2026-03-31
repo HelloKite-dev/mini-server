@@ -3,7 +3,7 @@
 
 <mapper namespace="com.seoyeon.mini_server.file.dao.FileDao">
 
-    <insert id="insertFile" parameterType="com.seoyeon.mini_server.file.dto.FileRequestDto" useGeneratedKeys="true" keyProperty="fileId">
+    <insert id="insertFile" parameterType="com.seoyeon.mini_server.file.dto.FileRequestDto">
         INSERT INTO FILES (POST_ID, FILE_NM, FILE_PATH, FILE_SIZE, FILE_EXT, REG_DT)
         VALUES (#{postId}, #{fileNm}, #{filePath}, #{fileSize}, #{fileExt}, NOW())
     </insert>
@@ -31,5 +31,10 @@
         FROM FILES
         WHERE FILE_ID = #{fileId}
     </select>
+
+    <delete id="deleteFile" parameterType="Long">
+        DELETE FROM FILES
+        WHERE FILE_ID = #{fileId}
+    </delete>
 
 </mapper>

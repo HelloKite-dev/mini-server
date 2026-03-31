@@ -17,4 +17,6 @@ public interface FileDao {
 
     // 파일 단건 조회 (다운로드용)
     FileResponseDto selectFile(Long fileId);
+
+    int deleteFile(Long fileId);
 }

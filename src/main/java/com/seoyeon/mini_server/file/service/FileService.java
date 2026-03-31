@@ -50,4 +50,8 @@ public class FileService {
     public FileResponseDto selectFile(Long fileId) {
         return fileDao.selectFile(fileId);
     }
+
+    public int deleteFile(Long fileId) {
+        return fileDao.deleteFile(fileId);
+    }
 }
