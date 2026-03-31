@@ -15,10 +15,13 @@ public interface PostDao {
 	PostDto selectPostDetail(Long id);
 	
 	// 게시글 작성
-	int insertPost(PostDto postDto);
+	Long insertPost(PostDto postDto);
 
 	// 게시글 수정
 	int updatePost(PostDto postDto);
+
+	// 조회수 증가
+	int updateViewCount(Long id);
 
 	// 게시글 삭제
 	int deletePost(Long id);

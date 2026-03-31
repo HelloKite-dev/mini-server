@@ -21,12 +21,14 @@ public class PostService {
 
     // 게시글 상세 조회
     public PostDto selectPostDetail(Long id) {
+        postDao.updateViewCount(id);
         return postDao.selectPostDetail(id);
     }
 	
 	// 게시글 작성
-	public int insertPost(PostDto postDto) {
-		return postDao.insertPost(postDto);
+	public Long insertPost(PostDto postDto) {
+		postDao.insertPost(postDto);
+        return postDto.getId();
 	}
 
     // 게시글 수정

@@ -4,25 +4,30 @@
 <mapper namespace="com.seoyeon.mini_server.post.dao.PostDao">
 
     <select id="selectAllPostList" resultType="com.seoyeon.mini_server.post.dto.PostDto">
-        SELECT ID,
-               USER_ID,
-               TITLE,
-               VIEW_COUNT,
-               REG_DT
-        FROM POSTS
-        ORDER BY REG_DT DESC
+        SELECT P.ID,
+               P.USER_ID,
+               U.USER_NM,
+               U.NICKNAME,
+               P.TITLE,
+               P.VIEW_COUNT,
+               P.REG_DT
+        FROM POSTS P
+        JOIN USERS U ON P.USER_ID = U.USER_ID
+        ORDER BY P.REG_DT ASC
     </select>
 
     <select id="selectPostDetail" parameterType="Long" resultType="com.seoyeon.mini_server.post.dto.PostDto">
-        SELECT ID,
-               USER_ID,
-               TITLE,
-               CONTENT,
-               VIEW_COUNT,
-               REG_DT,
-               MOD_DT
-        FROM POSTS
-        WHERE ID = #{id}
+        SELECT P.ID,
+               P.USER_ID,
+               U.NICKNAME,
+               P.TITLE,
+               P.CONTENT,
+               P.VIEW_COUNT,
+               P.REG_DT,
+               P.MOD_DT
+        FROM POSTS P
+        JOIN USERS U ON P.USER_ID = U.USER_ID
+        WHERE P.ID = #{id}
     </select>
 
 	<insert id="insertPost" parameterType="com.seoyeon.mini_server.post.dto.PostDto" useGeneratedKeys="true" keyProperty="id">
@@ -35,6 +40,12 @@
         SET TITLE = #{title},
         CONTENT = #{content},
         MOD_DT = NOW()
+        WHERE ID = #{id}
+    </update>
+
+    <update id="updateViewCount" parameterType="Long">
+        UPDATE POSTS
+        SET VIEW_COUNT = VIEW_COUNT + 1
         WHERE ID = #{id}
     </update>
 

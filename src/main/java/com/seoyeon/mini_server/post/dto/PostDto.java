@@ -10,6 +10,7 @@ import lombok.Setter;
 public class PostDto {
 	private Long id;
     private String userId;
+    private String nickname;
     private String title;
     private String content;
     private int viewCount;

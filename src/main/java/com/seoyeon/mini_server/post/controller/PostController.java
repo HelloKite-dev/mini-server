@@ -37,7 +37,7 @@ public class PostController {
 
 	// 게시글 작성
 	@PostMapping
-	public int insertPost(@RequestBody PostDto postDto) {
+	public Long insertPost(@RequestBody PostDto postDto) {
 		return postService.insertPost(postDto);
 	}
 
