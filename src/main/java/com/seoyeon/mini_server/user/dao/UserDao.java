@@ -16,4 +16,14 @@ public interface UserDao {
 
 	// 비밀번호 가져오기
 	UserRequestDto selectUserForLogin(@Param("userId") String userId);
+
+	UserResponseDto selectUserByNickname(@Param("nickname") String nickname);
+
+	UserResponseDto selectUserByUserEmail(@Param("userEmail") String userEmail);
+
+	int updateUserPw(UserRequestDto userRequestDto);
+
+	// 사용자 조회 (비밀번호 초기화)
+	boolean existsUserByIdAndEmail(@Param("userId") String userId,
+	@Param("userEmail") String userEmail);
 }

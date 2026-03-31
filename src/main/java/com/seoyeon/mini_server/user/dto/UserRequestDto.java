@@ -1,5 +1,6 @@
 package com.seoyeon.mini_server.user.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.Getter;
@@ -12,5 +13,10 @@ public class UserRequestDto {
 	private String userPw;
 	private String userNm;
 	private String userEmail;
+	private String nickname;
+	private String gender;
+	private LocalDate birth;
 	private LocalDateTime regDt;
+	private String currentPw;
+	private String newPw;
 }

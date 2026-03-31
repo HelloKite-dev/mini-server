@@ -11,6 +11,8 @@ import com.seoyeon.mini_server.util.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.UUID;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
@@ -47,7 +49,41 @@ public class UserService {
 		response.setToken(jwtUtil.generateToken(user.getUserId()));
 		response.setUserId(user.getUserId());
 		response.setUserNm(user.getUserNm());
+		response.setNickname(user.getNickname());
 		
 		return response;
+	}
+
+	public UserResponseDto selectUserByNickname(String nickname) {
+		return userDao.selectUserByNickname(nickname);
+	}
+
+	public UserResponseDto selectUserByUserEmail(String userEmail) {
+		return userDao.selectUserByUserEmail(userEmail);
+	}
+	
+	// 비밀번호 변경
+	public int updateUserPw(UserRequestDto userRequestDto) {
+		UserRequestDto user = userDao.selectUserForLogin(userRequestDto.getUserId());
+		if(!passwordEncoder.matches(userRequestDto.getCurrentPw(), user.getUserPw())) {
+			throw new RuntimeException("기존 비밀번호가 일치하지 않습니다.");
+		}
+		userRequestDto.setUserPw(passwordEncoder.encode(userRequestDto.getNewPw()));
+		return userDao.updateUserPw(userRequestDto);
+	}
+
+	public String resetPassword (String userId, String userEmail) {
+		boolean exists = userDao.existsUserByIdAndEmail(userId, userEmail);
+
+		if (!exists) return null; // 사용자 없음
+    
+		String tempPw = UUID.randomUUID().toString().substring(0, 8);
+		
+		UserRequestDto dto = new UserRequestDto();
+		dto.setUserId(userId);
+		dto.setUserPw(passwordEncoder.encode(tempPw));
+		
+		userDao.updateUserPw(dto);
+		return tempPw;
 	}
 }

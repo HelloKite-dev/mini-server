@@ -9,4 +9,5 @@ public class LoginResponseDto {
     private String token;
     private String userId;
     private String userNm;
+    private String nickname;
 }
