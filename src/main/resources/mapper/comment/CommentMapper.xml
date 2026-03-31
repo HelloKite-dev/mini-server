@@ -4,13 +4,15 @@
 <mapper namespace="com.seoyeon.mini_server.comment.dao.CommentDao">
 
 	<select id="selectCommentList" parameterType="Long" resultType="com.seoyeon.mini_server.comment.dto.CommentResponseDto">
-		SELECT ID,
-		       POST_ID,
-			   USER_ID,
-			   CONTENT,
-			   REG_DT,
-			   MOD_DT
-		FROM COMMENTS
+		SELECT C.ID,
+		       C.POST_ID,
+			   C.USER_ID,
+			   U.NICKNAME,
+			   C.CONTENT,
+			   C.REG_DT,
+			   C.MOD_DT
+		FROM COMMENTS C
+		JOIN USERS U ON C.USER_ID = U.USER_ID
 		WHERE POST_ID = #{postId}
 	</select>
 
