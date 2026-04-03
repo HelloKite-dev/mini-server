@@ -86,4 +86,8 @@ public class UserService {
 		userDao.updateUserPw(dto);
 		return tempPw;
 	}
+
+	public int updateNickname(UserRequestDto userRequestDto) {
+		return userDao.updateNickname(userRequestDto);
+	}
 }

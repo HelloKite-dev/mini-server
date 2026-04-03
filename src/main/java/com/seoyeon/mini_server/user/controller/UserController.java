@@ -70,4 +70,9 @@ public class UserController {
 		return userService.resetPassword(dto.getUserId(), dto.getUserEmail());
 		// 사용자 없으면 null, 있으면 tempPw 문자열 반환
 	}
+
+	@PutMapping("/nickname")
+	public int updateNickname(@RequestBody UserRequestDto userRequestDto) {
+		return userService.updateNickname(userRequestDto);
+	}
 }

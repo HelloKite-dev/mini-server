@@ -26,4 +26,6 @@ public interface UserDao {
 	// 사용자 조회 (비밀번호 초기화)
 	boolean existsUserByIdAndEmail(@Param("userId") String userId,
 	@Param("userEmail") String userEmail);
+
+	int updateNickname(UserRequestDto userRequestDto);
 }
